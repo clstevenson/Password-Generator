@@ -127,11 +127,24 @@ function generatePassword(length, lowerChars, upperChars, numericChars, specialC
   }
 
   // the string isn't completely random bc of how the first few chars were obtined
-  // So scramble the password before returning it
-  // using method from W3 schools https://www.w3schools.com/js/js_array_sort.asp
-  var passwordArray = Array.from(password);
-  passwordArray.sort(function () { return 0.5 - Math.random() });
 
+  // first create an array of characters from the current password
+  // var passwordArray = Array.from("Christopher");  // for testing purposes
+  var passwordArray = Array.from(password);
+
+  // now scramble those characters using Fisher Yates Method from W3 schools
+  // https://www.w3schools.com/js/js_array_sort.asp
+  for (let i = passwordArray.length - 1; i > 0; i--) { // counting down from last element
+    // generate random integer between 0 and i, inclusive
+    let j = Math.floor(Math.random() * (i + 1));
+    // store the ith character temporarily
+    let k = passwordArray[i];
+    // swap ith character and the random character
+    passwordArray[i] = passwordArray[j];
+    passwordArray[j] = k;
+  }
+
+  // return the scrambled password as a string
   return passwordArray.join("");
 }
 
