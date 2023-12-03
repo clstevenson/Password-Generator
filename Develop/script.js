@@ -1,14 +1,95 @@
-// Assignment Code
+// Assignment Code: button to generate password
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  /*
+  * Prompt user for character types:
+  * Include lowercase, uppercase, numeric, and/or special characters?
+  * Ideally this is one dialog box with maybe checkboxes or other ways to indicate choice
+  * But I think we need jQuery for that, .prompt won't do it, so I think we need a series of prompts
+  * */
+
+  var length = 0;
+  var firstPrompt = true;
+
+  // collect desired password length
+  // re-prompt if necessary; allow user to cancel the process
+  while (length < 8 || length > 128) {
+    if (firstPrompt) {
+      length = window.prompt("Length of password (8-128 chars)?");
+      firstPrompt = false;
+    } else {
+      length = window.prompt("Please specify a length between 8 and 128 characters:");
+    }
+    if (length === null) {
+      return null;
+    }
+  }
+
+  // set initial values (all lowercase, no numeric, no special chars)
+  var lowerChars = true;
+  var upperChars = false;
+  var numericChars = false;
+  var specialChars = false;
+
+  // prompt for user choices, showing the default values
+  answer = window.prompt("Include lowercase characters? Y/N", "Y").toUpperCase();
+  if (answer === null) {
+    return null;
+  } else if (answer !== "Y") {
+    lowerChars = false;
+  }
+  answer = window.prompt("Include uppercase characters? Y/N", "N").toUpperCase();
+  if (answer === null) {
+    return null;
+  } else if (answer !== "N") {
+    upperChars = true;
+  }
+  answer = window.prompt("Include numeric characters? Y/N", "N").toUpperCase();
+  if (answer === null) {
+    return null;
+  } else if (answer !== "N") {
+    numericChars = true;
+  }
+  answer = window.prompt("Include special characters? Y/N", "N").toUpperCase();
+  if (answer === null) {
+    return null;
+  } else if (answer !== "N") {
+    specialChars = true;
+  }
+
+  // After collecting information, confirm the user's choices.
+  // If OK then generate password, otherwise quit
+  answer = window.prompt("You selected length: " + length +
+    "\nLowercase characters: " + lowerChars +
+    "\nUppercase characters: " + upperChars +
+    "\nNumeric characters: " + numericChars +
+    "\nSpecial characters: " + specialChars +
+    "\nContinue? (Y/N)", "Y").toUpperCase();
+  if (answer == null || answer === "N") {
+    return null;
+  }
+
+  // the generatePassword function will return the password that meets the criteria
+  var password = generatePassword(length, lowerChars, upperChars, numericChars, specialChars);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
+  return true;    // to verify function reaches end
+}
+
+// generatePassword returns a password that meets user-selected criteria
+function generatePassword(length, lowerChars, upperChars, numericChars, specialChars) {
+  // check that the length is between 8-128 characters
+
+  const params = [length, lowerChars, upperChars, numericChars, specialChars];
+
+  return params;
+
 }
 
 // Add event listener to generate button
+// button calls the writePassword function when clicked
 generateBtn.addEventListener("click", writePassword);
