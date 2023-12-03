@@ -59,18 +59,21 @@ function writePassword() {
     specialChars = true;
   }
 
-  // TODO: check if the user selects NO options, which isn't allowed
-
-  // After collecting information, confirm the user's choices.
-  // If OK then generate password, otherwise quit
-  answer = window.prompt("You selected length: " + length +
-    "\nLowercase characters: " + lowerChars +
-    "\nUppercase characters: " + upperChars +
-    "\nNumeric characters: " + numericChars +
-    "\nSpecial characters: " + specialChars +
-    "\nContinue? (Y/N)", "Y").toUpperCase();
-  if (answer == null || answer === "N") {
+  // Check if the user selects NO options, which isn't allowed
+  if (!lowerChars && !upperChars && !numericChars && !specialChars) {
+    window.alert("You must choose at least one option: lowercase, uppercase, numeric, or special characters.");
     return null;
+  } else {
+    // Confirm the user's choices. If OK then generate password, otherwise quit
+    answer = window.prompt("You selected length: " + length +
+      "\nLowercase characters: " + lowerChars +
+      "\nUppercase characters: " + upperChars +
+      "\nNumeric characters: " + numericChars +
+      "\nSpecial characters: " + specialChars +
+      "\nContinue? (Y/N)", "Y").toUpperCase();
+    if (answer == null || answer === "N") {
+      return null;
+    }
   }
 
   // the generatePassword function will return the password that meets the criteria
