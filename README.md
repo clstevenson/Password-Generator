@@ -11,4 +11,4 @@ This is the third challenge in the Coding Bootcamp. We were provided with a skel
 
 Below is a screenshot of the password generator.
 
-![password generator screenshot](Assets/03-javascript-homework-demo.png "Password generator")
+![password generator screenshot](Assets/images/03-javascript-homework-demo.png "Password generator")
