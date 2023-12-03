@@ -9,6 +9,8 @@ This is the third challenge in the Coding Bootcamp. We were provided with a skel
 - the password of the desired length and according to the user-selected criteria, and displayed to the user.
 - The password is sufficiently randomized using the [Fisher Yates method](https://www.w3schools.com/js/js_array_sort.asp).
 
-Below is a screenshot of the password generator.
+Below is a screenshot of the password generator. The site is deployed to
+
+<https://clstevenson.github.io/Password-Generator/index.html>
 
 ![password generator screenshot](Assets/images/03-javascript-homework-demo.png "Password generator")
