@@ -76,7 +76,7 @@ function writePassword() {
     }
   }
 
-  // the generatePassword function will return the password that meets the criteria
+  // the generatePassword function will return the password that meets the criteria chosen above
   // the critera are passed as arguments to the function
   var password = generatePassword(length, lowerChars, upperChars, numericChars, specialChars);
   var passwordText = document.querySelector("#password");
@@ -95,43 +95,39 @@ function generatePassword(length, lowerChars, upperChars, numericChars, specialC
   const letters = 'abcsdefhijklmnopqrstuvwxyz';
   const upper = letters.toUpperCase();
   const numbers = '0123456789';
-  var comboString = "";
-  var randomIndex;
 
-  // randomly choose from each string the correct number of values
-  // need to leave enough room for each type
+  var comboString = "";     //combination of all possible characters
+  var randomIndex;          //randomly choose one character from a string
 
-  // randomly add one of each of the character types that was requested
-
-  // then for the remaining characters, randomly choose from any of them
-  if (lowerChars) {
+  if (lowerChars) {   // need at least one lowercase character
     randomIndex = randomInteger(letters.length);
     password = password + letters.substring(randomIndex, randomIndex + 1);
     comboString = letters;
   }
-  if (upperChars) {
+  if (upperChars) {   // need at least one uppercase character
     randomIndex = randomInteger(upper.length);
     password = password + upper.substring(randomIndex, randomIndex + 1);
     comboString = comboString + upper;
   }
-  if (numericChars) {
+  if (numericChars) { // need at least one numeric character
     randomIndex = randomInteger(numbers.length);
     password = password + numbers.substring(randomIndex, randomIndex + 1);
     comboString = comboString + numbers;
   }
-  if (specialChars) {
+  if (specialChars) { // need at least one special character
     randomIndex = randomInteger(special.length);
     password = password + special.substring(randomIndex, randomIndex + 1);
     comboString = comboString + special;
   }
 
-  // now from the combination string add the balance number of characters
+  // now from the combo string add enough characters to achieve the desired length
   for (var i = password.length; i < length; i++) {
     randomIndex = randomInteger(comboString.length);
     password = password + comboString.substring(randomIndex, randomIndex + 1);
   }
 
-  // finally scramble the password before returning it
+  // the string isn't completely random bc of how the first few chars were obtined
+  // So scramble the password before returning it
   // using method from W3 schools https://www.w3schools.com/js/js_array_sort.asp
   var passwordArray = Array.from(password);
   passwordArray.sort(function () { return 0.5 - Math.random() });
@@ -139,11 +135,10 @@ function generatePassword(length, lowerChars, upperChars, numericChars, specialC
   return passwordArray.join("");
 }
 
+// randomInteger generates a random integer between 0 and max-1
 function randomInteger(max) {
-  // generates a random integer between 0 and max-1
   return Math.floor(Math.random() * max);
 }
 
 // Add event listener to generate button
-// button calls the writePassword function when clicked
 generateBtn.addEventListener("click", writePassword);
